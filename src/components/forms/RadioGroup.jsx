@@ -1,12 +1,16 @@
 /**
  * RadioGroup — single-axis radio button group
  *
+ * Pixel-matched to screenshot:
+ *  checked   — fully filled brandPrimary-500 circle + white center dot
+ *  unchecked — white fill, 1.5px brandNeutral-300 border, no inner dot
+ *
  * Props:
- *  label    string   — group label
- *  name     string   — radio group name
- *  value    string   — currently selected value
- *  onChange fn       — (value: string) => void
- *  options  array    — [{ label, value }]
+ *  label     string  — group label
+ *  name      string  — radio group name
+ *  value     string  — currently selected value
+ *  onChange  fn      — (value: string) => void
+ *  options   array   — [{ label, value }]
  *  className string  — extra wrapper classes
  */
 export default function RadioGroup({
@@ -20,12 +24,12 @@ export default function RadioGroup({
   return (
     <div className={`flex flex-col gap-1.5 ${className}`}>
       {label && (
-        <span className="text-[13px] font-medium text-gray-600 leading-none">
+        <span className="text-[13px] font-medium text-brandNeutral-600 leading-none">
           {label}
         </span>
       )}
 
-      <div className="flex items-center gap-6 h-10.5">
+      <div className="flex items-center gap-6 h-[42px]">
         {options.map((opt) => {
           const checked = value === opt.value;
           return (
@@ -33,20 +37,20 @@ export default function RadioGroup({
               key={opt.value}
               className="flex items-center gap-2 cursor-pointer select-none"
             >
-              {/* Custom radio ring */}
+              {/* Custom radio — fully filled when checked */}
               <span
-                onClick={() => onChange && onChange(opt.value)}
                 className={[
-                  "w-4.5 h-4.5 rounded-full border-2 flex items-center justify-center shrink-0 transition-colors duration-150",
+                  "w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-150",
                   checked
-                    ? "border-green-500"
-                    : "border-gray-300 hover:border-gray-400",
+                    ? "bg-brandPrimary-500 border-2 border-brandPrimary-500"
+                    : "bg-white border-[1.5px] border-brandNeutral-300 hover:border-brandNeutral-400",
                 ].join(" ")}
               >
                 {checked && (
-                  <span className="w-2.5 h-2.5 rounded-full bg-green-500 block" />
+                  <span className="w-[7px] h-[7px] rounded-full bg-white block" />
                 )}
               </span>
+
               <input
                 type="radio"
                 name={name}
@@ -55,7 +59,8 @@ export default function RadioGroup({
                 onChange={() => onChange && onChange(opt.value)}
                 className="sr-only"
               />
-              <span className="text-[13.5px] text-gray-700">{opt.label}</span>
+
+              <span className="text-[13.5px] text-brandNeutral-700">{opt.label}</span>
             </label>
           );
         })}

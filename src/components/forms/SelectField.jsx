@@ -39,7 +39,7 @@ const SelectField = forwardRef(function SelectField(
       {label && (
         <label
           htmlFor={fieldId}
-          className="text-[13px] font-medium text-gray-600 leading-none"
+          className="text-[13px] font-medium text-brandNeutral-600 leading-none"
         >
           {label}
         </label>
@@ -56,10 +56,10 @@ const SelectField = forwardRef(function SelectField(
           className={[
             "w-full h-[42px] pl-3 pr-9 rounded-lg border text-[13.5px] appearance-none transition-colors duration-150",
             disabled
-              ? "bg-gray-50 border-gray-200 text-gray-500 cursor-not-allowed pointer-events-none"
-              : "bg-gray-50 border-gray-200 cursor-pointer hover:border-gray-300 focus:outline-none focus:ring-2 focus:ring-yellow-400/40 focus:border-yellow-400",
-            value === "" ? "text-gray-400" : "",
-            disabled && value !== "" ? "text-gray-500" : "",
+              ? "bg-brandNeutral-50 border-brandNeutral-200 text-brandNeutral-500 cursor-not-allowed pointer-events-none"
+              : "bg-brandNeutral-50 border-brandNeutral-200 cursor-pointer hover:border-brandNeutral-300 focus:outline-none focus:ring-2 focus:ring-brandSecondary-400/40 focus:border-brandSecondary-400",
+            value === "" ? "text-brandNeutral-400" : "",
+            disabled && value !== "" ? "text-brandNeutral-500" : "",
             error ? "border-red-400 focus:ring-red-200 focus:border-red-400" : "",
           ]
             .filter(Boolean)
@@ -76,7 +76,7 @@ const SelectField = forwardRef(function SelectField(
           ))}
         </select>
 
-        <span className="absolute inset-y-0 right-3 flex items-center text-gray-400 pointer-events-none">
+        <span className="absolute inset-y-0 right-3 flex items-center text-brandNeutral-400 pointer-events-none">
           <ChevronDown size={15} strokeWidth={2} />
         </span>
       </div>

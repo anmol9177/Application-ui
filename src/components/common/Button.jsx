@@ -1,10 +1,10 @@
 /**
  * Button — production-grade button
  *
- * Variants matched pixel-perfect to screenshots:
- *  primary  — dark teal/green (#1a7a6e area) background, white text  [Save Details]
- *  outline  — white bg, gray border, dark text                        [Send Acknowledgement]
- *  ghost    — transparent bg, gray text
+ * Variants pixel-matched to screenshot and migrated to design tokens:
+ *  primary  — brandPrimary-500 teal bg, white text   → "Save Details"
+ *  outline  — white bg, brandNeutral-300 border       → "Send Acknowledgement"
+ *  ghost    — transparent bg, muted text
  *
  * Props:
  *  variant   "primary" | "outline" | "ghost"
@@ -37,29 +37,30 @@ export default function Button({
   ].join(" ");
 
   const sizes = {
-    sm: "h-8 px-4 text-[12.5px]",
-    md: "h-[42px] px-5 text-[13.5px]",
-    lg: "h-[46px] px-7 text-[14px]",
+    sm:  "h-8 px-4 text-[12.5px]",
+    md:  "h-[42px] px-5 text-[13.5px]",
+    lg:  "h-[46px] px-7 text-[14px]",
   };
 
   const variants = {
-    // Matches screenshot: dark teal-green "Save Details" button
     primary: [
-      "bg-[#1e6b5e] text-white border border-[#1e6b5e]",
-      "hover:bg-[#175a4f] hover:border-[#175a4f] focus:ring-[#1e6b5e]/40",
+      "bg-brandPrimary-500 text-white border border-brandPrimary-500",
+      "hover:bg-brandPrimary-600 hover:border-brandPrimary-600",
+      "focus:ring-brandPrimary-500/40",
       "disabled:opacity-50 disabled:cursor-not-allowed",
     ].join(" "),
 
-    // Matches screenshot: white "Send Acknowledgement" button with visible border
     outline: [
-      "bg-white text-gray-700 border border-gray-300",
-      "hover:bg-gray-50 hover:border-gray-400 focus:ring-gray-300/50",
+      "bg-white text-brandNeutral-700 border border-brandNeutral-300",
+      "hover:bg-brandNeutral-50 hover:border-brandNeutral-400",
+      "focus:ring-brandNeutral-300/50",
       "disabled:opacity-50 disabled:cursor-not-allowed",
     ].join(" "),
 
     ghost: [
-      "bg-transparent text-gray-600 border border-transparent",
-      "hover:bg-gray-100 focus:ring-gray-300/50",
+      "bg-transparent text-brandNeutral-600 border border-transparent",
+      "hover:bg-brandNeutral-100",
+      "focus:ring-brandNeutral-300/50",
       "disabled:opacity-40 disabled:cursor-not-allowed",
     ].join(" "),
   };
