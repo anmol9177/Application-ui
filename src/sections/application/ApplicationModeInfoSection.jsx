@@ -1,9 +1,12 @@
 import { useState } from "react";
+
 import { Clock, Download, Eye, Trash2, X } from "lucide-react";
+
 import InputField from "../../components/forms/InputField";
 import SelectField from "../../components/forms/SelectField";
 import RadioGroup from "../../components/forms/RadioGroup";
 import FormGrid from "../../components/forms/FormGrid";
+
 import {
   APPLICATION_MODE_OPTIONS,
   PORTAL_OPTIONS,
@@ -99,21 +102,6 @@ export default function ApplicationModeInfoSection({ data = {}, onChange }) {
             {...field("portalName")}
           />
         </FormGrid>
-
-        {/* ── Row 3: Acknowledgement row ─────────────────────────────────
-            ROOT OF THE BUG: at 1024px, 3 columns in a narrow container
-            squeezes all three cells — especially the button cluster.
-
-            FIX STRATEGY:
-            - Mobile (default): 1 column, each item full width
-            - md (768px):       2 columns — Status + Number on row 1,
-                                Acknowledgement buttons on row 2 spanning full
-            - xl (1280px+):     3 columns — exactly as the approved desktop
-            - Between md–xl:    2-col grid; Acknowledgement cell spans 2 cols
-                                on its own row so buttons have full width
-
-            This means the 1024px "problem zone" gets a clean 2-col layout
-            with buttons on a dedicated full-width row — no compression.   */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-4 sm:gap-x-5 sm:gap-y-5">
 
           {/* Acknowledgement Status */}
@@ -126,7 +114,7 @@ export default function ApplicationModeInfoSection({ data = {}, onChange }) {
 
           {/* Application Acknowledgment Number
               xl: normal 1-col cell
-              md–lg: sits beside Status, fills remaining column             */}
+              md–lg: sits beside Status, fills remaining column*/}
           <InputField
             label="Application Acknowledgment Number"
             placeholder="—"

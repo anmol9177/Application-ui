@@ -67,7 +67,7 @@ export default function QuickActionsCard({
       <div className="px-4 pt-4 pb-3">
 
         {/* Header */}
-        <h3 className="text-[14px] font-semibold text-brandNeutral-800 leading-none mb-3">
+        <h3 className="text-[14px] font-inter text-brandNeutral-800 leading-none mb-3">
           Quick Actions
         </h3>
 

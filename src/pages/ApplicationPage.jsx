@@ -75,13 +75,13 @@ export default function ApplicationPage() {
     console.log("Send acknowledgement for:", formData.applicationAcknowledgmentNumber);
 
   return (
-    <div className="min-h-screen bg-brandNeutral-100 py-4 px-3 sm:py-6 sm:px-4 lg:py-8">
+    <div className="min-h-screen px-3 py-4 bg-brandNeutral-100 sm:py-6 sm:px-4 lg:py-8">
       {/* ── Outer wrapper ─────────────────────────────────────────────────── */}
       <div className="w-full max-w-[1200px] mx-auto flex flex-col lg:flex-row lg:items-start gap-4">
 
         {/* ── LEFT: Main application card ─────────────────────────────────── */}
         <div className="flex-1 min-w-0">
-          <div className="bg-white rounded-2xl border border-brandNeutral-200 shadow-sm overflow-hidden">
+          <div className="overflow-hidden bg-white border shadow-sm rounded-2xl border-brandNeutral-200">
 
             {/* Top navigation */}
             <TopNavTabs
@@ -92,7 +92,7 @@ export default function ApplicationPage() {
 
             {/* Inner content area */}
             <div className="p-3 sm:p-4 lg:p-5">
-              <div className="border border-brandNeutral-200 rounded-2xl overflow-hidden">
+              <div className="overflow-hidden border border-brandNeutral-200 rounded-2xl">
 
                 {/* Sub-tabs row — horizontally scrollable on mobile */}
                 <div className="px-3 pt-3 pb-2.5 sm:px-5 sm:pt-4 sm:pb-3 border-b border-brandNeutral-100 bg-white overflow-x-auto">
@@ -130,14 +130,14 @@ export default function ApplicationPage() {
                 </div>
 
                 {/* Footer actions */}
-                <div className="bg-white border-t border-brandNeutral-100 px-3 py-3 sm:px-6 sm:py-4 flex flex-col-reverse sm:flex-row justify-end items-stretch sm:items-center gap-2 sm:gap-3">
+                <div className="flex flex-col-reverse items-stretch justify-end gap-2 px-3 py-3 bg-white border-t border-brandNeutral-100 sm:px-6 sm:py-4 sm:flex-row sm:items-center sm:gap-3">
                   {NEXT_TABS.has(activeSubTab) && (
                     <Button
                       variant="primary"
                       size="md"
                       rightIcon={<ArrowRight size={15} strokeWidth={2.2} />}
                       onClick={handleNext}
-                      className="w-full sm:w-auto justify-center"
+                      className="justify-center w-full sm:w-auto"
                     >
                       Next
                     </Button>
@@ -149,7 +149,7 @@ export default function ApplicationPage() {
                         variant="outline"
                         size="md"
                         onClick={handleSendAcknowledgement}
-                        className="w-full sm:w-auto justify-center"
+                        className="justify-center w-full sm:w-auto"
                       >
                         Send Acknowledgement to Student
                       </Button>
@@ -158,7 +158,7 @@ export default function ApplicationPage() {
                         size="md"
                         leftIcon={<CheckCircle size={15} strokeWidth={2.2} />}
                         onClick={handleSave}
-                        className="w-full sm:w-auto justify-center"
+                        className="justify-center w-full sm:w-auto"
                       >
                         Save Details
                       </Button>
