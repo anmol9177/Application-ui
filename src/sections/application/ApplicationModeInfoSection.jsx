@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {Clock, Download, Eye, Trash2, X } from "lucide-react";
+import { Clock, Download, Eye, Trash2, X } from "lucide-react";
 import InputField from "../../components/forms/InputField";
 import SelectField from "../../components/forms/SelectField";
 import RadioGroup from "../../components/forms/RadioGroup";
@@ -55,7 +55,10 @@ export default function ApplicationModeInfoSection({ data = {}, onChange }) {
 
   return (
     <>
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-4 sm:gap-6">
+
+        {/* ── Row 1: Radio | Forwarded Date | Submission Date ───────────
+            Standard 3-col — these fields are fine at all widths.        */}
         <FormGrid>
           <RadioGroup
             label="Forwarded To Third Party"
@@ -68,9 +71,14 @@ export default function ApplicationModeInfoSection({ data = {}, onChange }) {
             ]}
           />
           <InputField label="Forwarded Date" {...dateField("forwardedDate")} />
-          <InputField label="Application Submission Date" {...dateField("applicationSubmissionDate")} />
+          <InputField
+            label="Application Submission Date"
+            {...dateField("applicationSubmissionDate")}
+          />
         </FormGrid>
 
+        {/* ── Row 2: Submission Time | Application Mode | Portal Name ───
+            Standard 3-col — no issues at any width.                     */}
         <FormGrid>
           <InputField
             label="Application Submission Time"
@@ -78,12 +86,47 @@ export default function ApplicationModeInfoSection({ data = {}, onChange }) {
             rightIcon={<Clock size={15} strokeWidth={1.8} />}
             {...field("applicationSubmissionTime")}
           />
-          <SelectField label="Application Mode" placeholder="Select Mode" options={APPLICATION_MODE_OPTIONS} {...field("applicationMode")} />
-          <SelectField label="Portal Name" placeholder="Select Portal" options={PORTAL_OPTIONS} {...field("portalName")} />
+          <SelectField
+            label="Application Mode"
+            placeholder="Select Mode"
+            options={APPLICATION_MODE_OPTIONS}
+            {...field("applicationMode")}
+          />
+          <SelectField
+            label="Portal Name"
+            placeholder="Select Portal"
+            options={PORTAL_OPTIONS}
+            {...field("portalName")}
+          />
         </FormGrid>
 
-        <FormGrid>
-          <SelectField label="Acknowledgement Status" placeholder="Select Status" options={ACKNOWLEDGEMENT_STATUS_OPTIONS} {...field("acknowledgementStatus")} />
+        {/* ── Row 3: Acknowledgement row ─────────────────────────────────
+            ROOT OF THE BUG: at 1024px, 3 columns in a narrow container
+            squeezes all three cells — especially the button cluster.
+
+            FIX STRATEGY:
+            - Mobile (default): 1 column, each item full width
+            - md (768px):       2 columns — Status + Number on row 1,
+                                Acknowledgement buttons on row 2 spanning full
+            - xl (1280px+):     3 columns — exactly as the approved desktop
+            - Between md–xl:    2-col grid; Acknowledgement cell spans 2 cols
+                                on its own row so buttons have full width
+
+            This means the 1024px "problem zone" gets a clean 2-col layout
+            with buttons on a dedicated full-width row — no compression.   */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-x-4 gap-y-4 sm:gap-x-5 sm:gap-y-5">
+
+          {/* Acknowledgement Status */}
+          <SelectField
+            label="Acknowledgement Status"
+            placeholder="Select Status"
+            options={ACKNOWLEDGEMENT_STATUS_OPTIONS}
+            {...field("acknowledgementStatus")}
+          />
+
+          {/* Application Acknowledgment Number
+              xl: normal 1-col cell
+              md–lg: sits beside Status, fills remaining column             */}
           <InputField
             label="Application Acknowledgment Number"
             placeholder="—"
@@ -92,24 +135,47 @@ export default function ApplicationModeInfoSection({ data = {}, onChange }) {
             disabled={true}
           />
 
-          <div className="flex flex-col gap-1.5">
+          {/* Acknowledgement file action buttons
+              xl:   3rd column cell — same row as the two fields above
+              md–lg: spans both columns on its own row so buttons
+                     have full width and never get compressed               */}
+          <div className="md:col-span-2 xl:col-span-1 flex flex-col gap-1.5">
             <span className="text-[13px] font-medium text-brandNeutral-600 leading-none">
               Acknowledgement
             </span>
+
             {hasAcknowledgement ? (
-              <div className="flex items-center gap-2 h-[42px]">
+              <div className="flex items-center gap-2 h-[42px] flex-shrink-0">
                 <AcknowledgementAction
-                  icon={<Download size={15} strokeWidth={1.8} className="text-brandNeutral-500" />}
+                  icon={
+                    <Download
+                      size={15}
+                      strokeWidth={1.8}
+                      className="text-brandNeutral-500"
+                    />
+                  }
                   title="Download acknowledgement"
                   onClick={handleDownload}
                 />
                 <AcknowledgementAction
-                  icon={<Eye size={15} strokeWidth={1.8} className="text-brandPrimary-500" />}
+                  icon={
+                    <Eye
+                      size={15}
+                      strokeWidth={1.8}
+                      className="text-brandPrimary-500"
+                    />
+                  }
                   title="Preview acknowledgement"
                   onClick={handleView}
                 />
                 <AcknowledgementAction
-                  icon={<Trash2 size={15} strokeWidth={1.8} className="text-red-400" />}
+                  icon={
+                    <Trash2
+                      size={15}
+                      strokeWidth={1.8}
+                      className="text-red-400"
+                    />
+                  }
                   title="Delete acknowledgement"
                   onClick={handleDelete}
                 />
@@ -122,7 +188,8 @@ export default function ApplicationModeInfoSection({ data = {}, onChange }) {
               </div>
             )}
           </div>
-        </FormGrid>
+
+        </div>
       </div>
 
       {showPreview && (
@@ -144,7 +211,7 @@ function AcknowledgementAction({ icon, title, onClick }) {
       onClick={onClick}
       className={[
         "w-[38px] h-[38px] rounded-lg border border-brandNeutral-200 bg-brandNeutral-50",
-        "flex items-center justify-center",
+        "flex items-center justify-center flex-shrink-0",
         "hover:bg-brandNeutral-100 hover:border-brandNeutral-300 transition-colors duration-150",
         "focus:outline-none focus:ring-2 focus:ring-brandSecondary-400/50",
       ].join(" ")}
@@ -157,28 +224,32 @@ function AcknowledgementAction({ icon, title, onClick }) {
 function PreviewModal({ fileUri, fileName, onClose }) {
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[2px]"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-[2px] p-4"
       onClick={onClose}
     >
       <div
-        className="relative bg-white rounded-2xl shadow-2xl border border-brandNeutral-200 flex flex-col overflow-hidden"
-        style={{ width: "min(720px, 92vw)", height: "min(540px, 88vh)" }}
+        className="relative bg-white rounded-2xl shadow-2xl border border-brandNeutral-200 flex flex-col overflow-hidden w-full max-w-[720px]"
+        style={{ height: "min(540px, 88vh)" }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="flex items-center justify-between px-5 py-3.5 border-b border-brandNeutral-100 flex-shrink-0">
-          <span className="text-[13.5px] font-medium text-brandNeutral-700 truncate">
+        <div className="flex items-center justify-between px-4 sm:px-5 py-3.5 border-b border-brandNeutral-100 flex-shrink-0">
+          <span className="text-[13.5px] font-medium text-brandNeutral-700 truncate mr-3">
             {fileName}
           </span>
           <button
             type="button"
             onClick={onClose}
-            className="w-7 h-7 flex items-center justify-center rounded-lg text-brandNeutral-400 hover:bg-brandNeutral-100 hover:text-brandNeutral-600 transition-colors duration-150 focus:outline-none"
+            className="w-7 h-7 flex items-center justify-center flex-shrink-0 rounded-lg text-brandNeutral-400 hover:bg-brandNeutral-100 hover:text-brandNeutral-600 transition-colors duration-150 focus:outline-none"
           >
             <X size={15} strokeWidth={2} />
           </button>
         </div>
-        <iframe src={fileUri} title="Acknowledgement preview" className="flex-1 w-full border-0" />
-        <div className="flex justify-end px-5 py-3 border-t border-brandNeutral-100 flex-shrink-0">
+        <iframe
+          src={fileUri}
+          title="Acknowledgement preview"
+          className="flex-1 w-full border-0"
+        />
+        <div className="flex justify-end px-4 sm:px-5 py-3 border-t border-brandNeutral-100 flex-shrink-0">
           <button
             type="button"
             onClick={onClose}

@@ -17,7 +17,7 @@ const TEAM_MEMBERS = [
     name: "Rahul Verma",
     subtitle: "CA",
     role: "CA",
-    color: "bg-brandSecondary-500",
+    color: "bg-gradient-to-b from-[#FFF183] to-[#BEAA12]"
   },
   {
     id: "ag",
@@ -25,7 +25,7 @@ const TEAM_MEMBERS = [
     name: "Anjali Gupta",
     subtitle: "BAT",
     role: "BAT",
-    color: "bg-brandSecondary-500",
+    color: "bg-gradient-to-b from-[#FFF183] to-[#BEAA12]",
   },
   {
     id: "vs",
@@ -33,7 +33,7 @@ const TEAM_MEMBERS = [
     name: "Vikram Singh",
     subtitle: "CAT",
     role: "CAT",
-    color: "bg-brandSecondary-500",
+    color: "bg-gradient-to-b from-[#FFF183] to-[#BEAA12]",
   },
 ];
 
@@ -53,21 +53,22 @@ export default function ApplicationScoreCard({
   return (
     <SidebarCard>
       <div className="px-4 pt-4 pb-3">
-
+        
         {/* ── Header ────────────────────────────────────────────────── */}
         <div className="flex items-center justify-between mb-5">
-          <h3 className="text-[15px] font-semibold text-brandNeutral-800 leading-none">
+          <h3 className="text-[15px] font-weight-500 style-medium font-inter text-brandNeutral-800 leading-none">
             Application Score
           </h3>
           <ScoreBadge value={score} />
         </div>
+        <div className="h-[2px] w-full bg-gradient-to-r from-[#FFFEF4] via-[#489A83] to-[#FFFEF4] my-4" />
 
         {/* ── Stats row ─────────────────────────────────────────────── */}
         {/* Each stat lives in its own light-bg rounded box — matches screenshot */}
         <div className="flex items-stretch gap-3 mb-5 pb-5 border-b border-brandNeutral-100">
 
           {/* Total Applications box */}
-          <div className="flex flex-col gap-1.5 bg-brandNeutral-50 rounded-xl px-3 py-2.5 flex-1">
+          <div className="flex flex-col gap-1.5 bg-gradient-to-b from-white to-surface rounded-xl px-3 py-2.5 flex-1">
             <span className="text-[10.5px] font-normal text-brandNeutral-400 leading-none">
               Total Applications
             </span>
@@ -77,7 +78,7 @@ export default function ApplicationScoreCard({
           </div>
 
           {/* Countries Applied box */}
-          <div className="flex flex-col gap-1.5 bg-brandNeutral-50 rounded-xl px-3 py-2.5 flex-1">
+          <div className="flex flex-col gap-1.5 bg-gradient-to-b from-white to-surface rounded-xl px-3 py-2.5 flex-1">
             <span className="text-[10.5px] font-normal text-brandNeutral-400 leading-none">
               Countries Applied
             </span>
@@ -103,7 +104,7 @@ export default function ApplicationScoreCard({
 
         {/* ── Assigned Team ──────────────────────────────────────────── */}
         <div>
-          <h4 className="text-[13px] font-semibold text-brandNeutral-800 mb-2 leading-none">
+          <h4 className="text-[13px] font-inter font-weight-500 text-brandNeutral-800 mb-2 leading-none">
             Assigned Team
           </h4>
           <div className="divide-y divide-brandNeutral-100">

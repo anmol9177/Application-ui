@@ -3,18 +3,7 @@ import { forwardRef } from "react";
 
 /**
  * SelectField — production-grade select dropdown
- *
- * Props:
- *  label        string        — field label
- *  id           string        — links label to select
- *  name         string        — select name attr
- *  value        string        — controlled value
- *  onChange     fn            — change handler
- *  options      array         — [{ label, value }]
- *  placeholder  string        — first disabled option text
- *  disabled     bool          — disables the select
- *  className    string        — extra wrapper classes
- *  error        string        — validation error message
+ * Fully responsive: full-width on all screens.
  */
 const SelectField = forwardRef(function SelectField(
   {
@@ -35,7 +24,7 @@ const SelectField = forwardRef(function SelectField(
   const fieldId = id || name;
 
   return (
-    <div className={`flex flex-col gap-1.5 ${className}`}>
+    <div className={`flex flex-col gap-1.5 w-full ${className}`}>
       {label && (
         <label
           htmlFor={fieldId}
@@ -45,7 +34,7 @@ const SelectField = forwardRef(function SelectField(
         </label>
       )}
 
-      <div className="relative">
+      <div className="relative w-full">
         <select
           ref={ref}
           id={fieldId}

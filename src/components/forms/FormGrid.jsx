@@ -1,22 +1,16 @@
 /**
- * FormGrid — responsive 3-column form field grid
+ * FormGrid — responsive form field grid
+ *
+ * Breakpoint strategy (mobile-first):
+ *  mobile  → 1 column
+ *  sm(640) → 1 column  (still single on small tablet)
+ *  md(768) → 2 columns
+ *  lg(1024)→ 3 columns (default)
  *
  * Props:
- *  columns   1 | 2 | 3   — override column count (default: 3)
- *  className string       — extra classes
- *  children  node         — form fields
- *
- * Usage:
- *  <FormGrid>
- *    <InputField ... />
- *    <SelectField ... />
- *    <InputField ... />
- *  </FormGrid>
- *
- * For a field that should span all columns:
- *  <div className="col-span-full">...</div>
- *  or
- *  <div className="md:col-span-2">...</div>
+ *  columns   1 | 2 | 3  — override column count (default: 3)
+ *  className string
+ *  children  node
  */
 const colMap = {
   1: "grid-cols-1",
@@ -28,7 +22,7 @@ export default function FormGrid({ columns = 3, className = "", children }) {
   return (
     <div
       className={[
-        "grid gap-x-5 gap-y-5",
+        "grid gap-x-4 gap-y-4 sm:gap-x-5 sm:gap-y-5",
         colMap[columns] || colMap[3],
         className,
       ].join(" ")}

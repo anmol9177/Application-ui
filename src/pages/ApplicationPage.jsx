@@ -17,9 +17,7 @@ import {
   APPLICATION_SUB_TABS,
 } from "../constants/applicationConstants";
 
-// ─── Initial form state ───────────────────────────────────────────────────────
 const INITIAL_STATE = {
-  // Application Details (read-only — API values)
   applicationTat: "0",
   applicationFee: "Yes (125)",
   feeWaiver: "No",
@@ -33,8 +31,6 @@ const INITIAL_STATE = {
   earlyApplicationDeadline: "-",
   applicationCreationDate: "30th April 2026 | 12:21 PM",
   applicationStatus: "underReview",
-
-  // Course Details (read-only — API values)
   courseName: "MSC in Business with Marketing",
   university: "Warwick Business School",
   preferences: "Firm Choice : Student's First Preferences",
@@ -45,8 +41,6 @@ const INITIAL_STATE = {
   courseLevel: "masters",
   courseBroadField: "Management and Commerce",
   courseNarrowField: "Sales and Marketing",
-
-  // Application Mode Info (editable)
   forwardedToThirdParty: "yes",
   forwardedDate: "",
   applicationSubmissionDate: "2026-05-08",
@@ -76,20 +70,16 @@ export default function ApplicationPage() {
     }
   };
 
-  const handleSave = () => {
-    console.log("Save payload:", formData);
-  };
-
-  const handleSendAcknowledgement = () => {
+  const handleSave = () => console.log("Save payload:", formData);
+  const handleSendAcknowledgement = () =>
     console.log("Send acknowledgement for:", formData.applicationAcknowledgmentNumber);
-  };
 
   return (
-    <div className="min-h-screen bg-brandNeutral-100 py-8 px-4">
-      {/* ── Outer flex row: main content + sidebar ─────────────────────── */}
-      <div className="w-full max-w-[1200px] mx-auto flex items-start gap-4">
+    <div className="min-h-screen bg-brandNeutral-100 py-4 px-3 sm:py-6 sm:px-4 lg:py-8">
+      {/* ── Outer wrapper ─────────────────────────────────────────────────── */}
+      <div className="w-full max-w-[1200px] mx-auto flex flex-col lg:flex-row lg:items-start gap-4">
 
-        {/* ── LEFT: Main application card ─────────────────────────────── */}
+        {/* ── LEFT: Main application card ─────────────────────────────────── */}
         <div className="flex-1 min-w-0">
           <div className="bg-white rounded-2xl border border-brandNeutral-200 shadow-sm overflow-hidden">
 
@@ -101,11 +91,11 @@ export default function ApplicationPage() {
             />
 
             {/* Inner content area */}
-            <div className="p-5">
+            <div className="p-3 sm:p-4 lg:p-5">
               <div className="border border-brandNeutral-200 rounded-2xl overflow-hidden">
 
-                {/* Sub-tabs row */}
-                <div className="px-5 pt-4 pb-3 border-b border-brandNeutral-100 bg-white">
+                {/* Sub-tabs row — horizontally scrollable on mobile */}
+                <div className="px-3 pt-3 pb-2.5 sm:px-5 sm:pt-4 sm:pb-3 border-b border-brandNeutral-100 bg-white overflow-x-auto">
                   <SubTabs
                     tabs={APPLICATION_SUB_TABS}
                     activeTab={activeSubTab}
@@ -114,7 +104,10 @@ export default function ApplicationPage() {
                 </div>
 
                 {/* Form body */}
-                <div className="bg-white px-6 pt-6 pb-4 min-h-[420px]">
+                <div className="bg-white px-3 pt-4 pb-3 sm:px-5 sm:pt-5 sm:pb-4 lg:px-6 lg:pt-6 lg:pb-4 min-h-[360px] sm:min-h-[400px] lg:min-h-[420px]">
+
+                  <div className="file:///C:/Users/IT/Downloads/Line%2017769.svg" />
+
                   {activeSubTab === "applicationDetails" && (
                     <ApplicationDetailsSection
                       data={formData}
@@ -133,16 +126,18 @@ export default function ApplicationPage() {
                       onChange={handleFieldChange}
                     />
                   )}
+                  
                 </div>
 
                 {/* Footer actions */}
-                <div className="bg-white border-t border-brandNeutral-100 px-6 py-4 flex justify-end items-center gap-3">
+                <div className="bg-white border-t border-brandNeutral-100 px-3 py-3 sm:px-6 sm:py-4 flex flex-col-reverse sm:flex-row justify-end items-stretch sm:items-center gap-2 sm:gap-3">
                   {NEXT_TABS.has(activeSubTab) && (
                     <Button
                       variant="primary"
                       size="md"
                       rightIcon={<ArrowRight size={15} strokeWidth={2.2} />}
                       onClick={handleNext}
+                      className="w-full sm:w-auto justify-center"
                     >
                       Next
                     </Button>
@@ -154,6 +149,7 @@ export default function ApplicationPage() {
                         variant="outline"
                         size="md"
                         onClick={handleSendAcknowledgement}
+                        className="w-full sm:w-auto justify-center"
                       >
                         Send Acknowledgement to Student
                       </Button>
@@ -162,6 +158,7 @@ export default function ApplicationPage() {
                         size="md"
                         leftIcon={<CheckCircle size={15} strokeWidth={2.2} />}
                         onClick={handleSave}
+                        className="w-full sm:w-auto justify-center"
                       >
                         Save Details
                       </Button>
@@ -174,10 +171,14 @@ export default function ApplicationPage() {
           </div>
         </div>
 
-        {/* ── RIGHT: Sidebar ───────────────────────────────────────────── */}
-        <aside className="w-[280px] flex-shrink-0 flex flex-col gap-3">
-          <ApplicationScoreCard />
-          <QuickActionsCard />
+        {/* ── RIGHT: Sidebar — full width on mobile/tablet, fixed on desktop ── */}
+        <aside className="w-full lg:w-[280px] lg:flex-shrink-0 flex flex-col sm:flex-row lg:flex-col gap-3">
+          <div className="flex-1 lg:flex-none">
+            <ApplicationScoreCard />
+          </div>
+          <div className="flex-1 lg:flex-none">
+            <QuickActionsCard />
+          </div>
         </aside>
 
       </div>

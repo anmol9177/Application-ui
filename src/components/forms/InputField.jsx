@@ -2,20 +2,7 @@ import { forwardRef } from "react";
 
 /**
  * InputField — production-grade text input
- *
- * Props:
- *  label        string   — field label
- *  id           string   — links label to input (falls back to name)
- *  name         string   — input name attr
- *  value        string   — controlled value
- *  onChange     fn       — change handler
- *  placeholder  string   — placeholder text
- *  disabled     bool     — makes field read-only (display mode)
- *  type         string   — input type (default: "text")
- *  rightIcon    node     — optional icon rendered on the right
- *  className    string   — extra wrapper classes
- *  inputClass   string   — extra input classes
- *  error        string   — validation error message
+ * Fully responsive: full-width on all screens, icons properly positioned.
  */
 const InputField = forwardRef(function InputField(
   {
@@ -38,7 +25,7 @@ const InputField = forwardRef(function InputField(
   const fieldId = id || name;
 
   return (
-    <div className={`flex flex-col gap-1.5 ${className}`}>
+    <div className={`flex flex-col gap-1.5 w-full ${className}`}>
       {label && (
         <label
           htmlFor={fieldId}
@@ -48,7 +35,7 @@ const InputField = forwardRef(function InputField(
         </label>
       )}
 
-      <div className="relative">
+      <div className="relative w-full">
         <input
           ref={ref}
           id={fieldId}
@@ -59,7 +46,10 @@ const InputField = forwardRef(function InputField(
           placeholder={placeholder}
           disabled={disabled}
           className={[
+            // Full width, consistent height, responsive padding
             "w-full h-[42px] px-3 rounded-lg border text-[13.5px] transition-colors duration-150",
+            // Date inputs: prevent browser chrome from overflowing
+            type === "date" ? "min-w-0" : "",
             disabled
               ? "bg-brandNeutral-50 border-brandNeutral-200 text-brandNeutral-500 cursor-not-allowed select-none pointer-events-none"
               : "bg-brandNeutral-50 border-brandNeutral-200 text-brandNeutral-700 hover:border-brandNeutral-300 focus:outline-none focus:ring-2 focus:ring-brandSecondary-400/40 focus:border-brandSecondary-400",
