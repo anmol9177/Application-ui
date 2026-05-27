@@ -1,8 +1,4 @@
-/**
- * ScoreBadge — circular yellow badge with green border ring.
- *
- * Screenshot: yellow fill, green border ring, dark bold text.
- */
+
 export default function ScoreBadge({ value }) {
   return (
     <span

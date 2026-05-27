@@ -1,7 +1,4 @@
-/**
- * Button — production-grade button
- * Responsive: supports full-width via className prop on mobile.
- */
+
 export default function Button({
   variant = "primary",
   size = "md",
@@ -58,7 +55,7 @@ export default function Button({
     >
       {loading ? (
         <svg
-          className="animate-spin w-4 h-4 text-current"
+          className="w-4 h-4 text-current animate-spin"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"

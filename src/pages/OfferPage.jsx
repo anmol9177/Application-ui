@@ -59,7 +59,6 @@ const INITIAL_DOCUMENT = {
 };
 
 // ─── Auto-calculation helpers ─────────────────────────────────────────────────
-
 /** Safely parse a numeric string — returns 0 on failure */
 function parseNum(val) {
   const n = parseFloat(String(val).replace(/,/g, ""));
@@ -71,16 +70,7 @@ function fmt(n) {
   return n > 0 ? n.toFixed(2) : "";
 }
 
-/**
- * Derives all auto-calculated fields from current formData.
- * Only runs when autoCalculationFees === "yes".
- *
- * Formulas:
- *   annualFeesAfterScholarshipINR = annualFeesAfterScholarshipAUD × AUD_TO_INR_RATE
- *   totalFeesAfterScholarshipINR  = totalFeesAfterScholarshipAUD  × AUD_TO_INR_RATE
- *   totalAnnualFeesAUD            = totalFeesAfterScholarshipAUD  + oshcFees
- *   totalAnnualFeesINR            = totalAnnualFeesAUD            × AUD_TO_INR_RATE
- */
+
 function deriveCalculatedFields(data) {
   if (data.autoCalculationFees !== "yes") return {};
 
@@ -139,23 +129,11 @@ export default function OfferPage() {
     });
   };
 
-  // ── Document handlers ──────────────────────────────────────────────────────
-
-  /**
-   * Opens the document in a new browser tab.
-   * TODO: If the URL is a signed S3/Azure link, ensure it hasn't expired
-   *       before calling this — refresh via API if needed.
-   */
   const handleDocView = () => {
     if (!documentFile?.url) return;
     window.open(documentFile.url, "_blank", "noopener,noreferrer");
   };
 
-  /**
-   * Triggers a browser file download for the conditional offer document.
-   * TODO: Replace documentFile.url with a real download endpoint from the API.
-   *       If the backend returns a blob, use URL.createObjectURL() instead.
-   */
   const handleDocDownload = () => {
     if (!documentFile?.url) return;
     const link = document.createElement("a");
@@ -166,21 +144,10 @@ export default function OfferPage() {
     document.body.removeChild(link);
   };
 
-  /**
-   * Removes the document from UI state immediately.
-   * TODO: Call DELETE /api/offer-documents/:id before setting state,
-   *       and only clear on successful API response.
-   */
   const handleDocDelete = () => {
     setDocumentFile(null);
   };
 
-  // ── Footer action handlers ─────────────────────────────────────────────────
-
-  /**
-   * Persists offer form data.
-   * TODO: Call POST/PUT /api/offers with formData payload.
-   */
   const handleSave = () => {
     // TODO: await offerService.save(formData)
   };
@@ -203,11 +170,7 @@ export default function OfferPage() {
         <div className="flex-1 min-w-0">
           <div className="overflow-hidden bg-white border shadow-sm rounded-2xl border-brandNeutral-200">
 
-            {/* ── Top nav bar ─────────────────────────────────────────────
-                Structure: tabs (left, scrollable) + Special Services (right, sticky).
-                The outer div clips overflow; the inner scrollable div contains only
-                the tabs so the Special Services button stays pinned to the right
-                at all viewport widths without being pushed off-screen.            */}
+              {/* Top navigation */}
             <div className="flex items-stretch bg-white border-b border-brandNeutral-200 rounded-t-2xl">
 
               {/* Tab group — scrolls horizontally on narrow screens */}
