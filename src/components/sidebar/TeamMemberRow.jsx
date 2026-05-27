@@ -1,19 +1,4 @@
-/**
- * TeamMemberRow — single assigned team member row.
- *
- * Pixel-matched to screenshot:
- * - yellow avatar (brandSecondary-500) for all members
- * - name + subtitle stacked left
- * - role tag: white bg + border pill (not plain text)
- * - tighter row padding
- *
- * Props:
- *  initials  string — 2-char initials (e.g. "RV")
- *  name      string — full name
- *  subtitle  string — small label under name (e.g. "CA")
- *  role      string — right-aligned role abbreviation
- *  color     string — Tailwind bg class for avatar
- */
+
 export default function TeamMemberRow({ initials, name, subtitle, role, color }) {
   return (
     <div className="flex items-center gap-2.5 py-2.5">
