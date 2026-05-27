@@ -56,7 +56,7 @@ const SAVE_TABS = new Set(["applicationModeInfo"]);
 
 export default function ApplicationPage() {
   const [activeTopTab, setActiveTopTab] = useState("application");
-  const [activeSubTab, setActiveSubTab] = useState("applicationModeInfo");
+  const [activeSubTab, setActiveSubTab] = useState("applicationDetails");
   const [formData, setFormData] = useState(INITIAL_STATE);
 
   const handleFieldChange = (field, value) => {

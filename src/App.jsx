@@ -1,13 +1,11 @@
-import { Routes, Route } from "react-router-dom";
-
-import ApplicationPage from "./pages/ApplicationPage";
-import OfferPage from "./pages/OfferPage";
+import { Routes, Route, Navigate } from "react-router-dom";
+import DashboardPage from "./pages/DashboardPage";
 
 export default function App() {
   return (
     <Routes>
-      <Route path="/" element={<ApplicationPage />} />
-      <Route path="/offer" element={<OfferPage />} />
+      <Route path="/" element={<DashboardPage />} />
+      <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>
   );
 }

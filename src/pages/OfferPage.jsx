@@ -59,7 +59,6 @@ const INITIAL_DOCUMENT = {
 };
 
 // ─── Auto-calculation helpers ─────────────────────────────────────────────────
-
 /** Safely parse a numeric string — returns 0 on failure */
 function parseNum(val) {
   const n = parseFloat(String(val).replace(/,/g, ""));
